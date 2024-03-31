@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Your Django Application</title>
+    <!-- Add your CSS links here -->
+    {#    <link rel="stylesheet" href="{% static 'css/style.css' %}">#}
+</head>
+<body>
+<header>
+    <h1>Welcome <span>to</span> the <span>Bike</span> Connect <span>Network</span>!</h1>
+    <!-- Add navigation links here if needed -->
+    <!-- Example: <nav><ul><li><a href="#">Home</a></li></ul></nav> -->
+</header>
+<main>
+    {% if user.is_authenticated %}
+        <section>
+            <p>Welcome, {{ request.user }}! You are logged in.</p>
+
+            <a href="#">Create Post</a>
+            <a href="#">Groups</a>
+            <a href="{% url 'details_user' pk=user.pk %}">Profile</a>
+            <!-- Add link to user profile if available -->
+            <form action="{% url 'logout_user' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+            {#                <a href="{% url 'profile' %}">Go to Profile</a>#}
+        </section>
+    {% else %}
+        <section>
+            <!-- Add your login and registration form here -->
+            <form action="{% url 'login_user' %}?next={{ next }}" method="post">
+                {{ form.as_p }}
+
+                <button>Login</button>
+
+                {% csrf_token %}
+            </form>
+            <p>Don't have an account? <a href="{% url 'register_user' %}">Register</a></p>
+        </section>
+    {% endif %}
+</main>
+<footer>
+    <p>&copy; {% now "Y" %} Your Django Application</p>
+</footer>
+</body>
+</html>

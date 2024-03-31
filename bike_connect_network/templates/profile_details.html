@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Details</title>
+</head>
+<body>
+{% if not user.profile_picture %}
+    <img
+            src="{% static "/photos/default_profile_pic.jpg" %}"
+            alt="profile-image"
+    />
+{% else %}
+    <!-- if the user has a profile image -->
+    <img src="{{ user.profile_picture }}" alt="profile-image"/>
+{% endif %}
+{% if user.first_name and user.last_name %}
+    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+{% elif user.first_name %}
+    <h1>{{ user.first_name }}</h1>
+{% elif user.last_name %}
+    <h1>{{ user.last_name }}</h1>
+{% else %}
+    <h1>User: {{ user.pk }}</h1>
+{% endif %}
+<p class="description">Email: {{ user.user.email }}</p>
+<p class="description">Age: {{ user.age }}</p>
+<a href="{% url 'edit_user' pk=user.pk %}" class="edit-button">Edit</a>
+<a href="{% url 'delete_user' pk=user.pk %}" class="delete-button">Delete</a>
+</body>
+</html>
