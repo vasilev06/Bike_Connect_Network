@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+    <h2>Bike Connect Network Groups</h2>
+    <ul>
+        {% for group in groups %}
+            <li>
+                <a href="{% url 'detail_group' pk=group.pk %}">{{ group.name }}</a>
+            </li>
+        {% empty %}
+            <li>No groups found.</li>
+        {% endfor %}
+    </ul>
+    
+    <a href="{% url 'create_group' %}"><button class="button-link">Create Group</button></a>
+    
+{% endblock %}

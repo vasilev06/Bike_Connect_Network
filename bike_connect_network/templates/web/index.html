@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block main_content %}
+    <main>
+        {% if user.is_authenticated %}
+            <section>
+                <a href="#" class="button-link">Create Post</a>
+                <a href="{% url 'list_groups' %}" class="button-link">Groups</a>
+                <a href="{% url 'details_user' pk=user.pk %}" class="button-link">Profile</a>
+                <form action="{% url 'logout_user' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="button-link">Logout</button>
+                </form>
+            </section>
+        {% else %}
+            <section>
+                <div class="container">
+                    <form action="{% url 'login_user' %}?next={{ next }}" method="post">
+                        {{ form.as_p }}
+
+                        <button class="button-link">Login</button>
+
+                        {% csrf_token %}
+                    </form>
+                </div>
+                <p>Don't have an account? 
+                    <a href="{% url 'register_user' %}" class="button-link">Register</a>
+                </p>
+            </section>
+        {% endif %}
+    </main>
+{% endblock %}

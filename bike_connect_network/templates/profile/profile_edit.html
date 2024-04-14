@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block main_content %}
+    <section id="register-page" class="content auth">
+        <div class="container">
+            <form action="{% url 'edit_user' pk=user.pk %}" method="post">
+                <h1>Edit Profile</h1>
+                {{ form.as_p }}
+
+                <button type="submit" class="button-link">Edit Profile</button>
+
+                {% csrf_token %}
+            </form>
+        </div>
+    </section>
+{% endblock %}

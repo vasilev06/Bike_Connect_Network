@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+    <h2>{{ group.name }}</h2>
+    <p>{{ group.description }}</p>
+
+    {% if user.is_authenticated %}
+        {% if user in group.members.all %}
+            <form method="post" action="{% url 'leave_group' pk=object.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="button-link">Leave Group</button>
+            </form>
+
+            <a href="{% url 'create_event' pk=object.pk %}">
+                <button class="button-link">Create an Event</button>
+            </a>
+
+            <h3>Events:</h3>
+            <ul>
+                {% for event in group.event_set.all reversed %}
+                    <li>
+                        {{ event.title }} from {{ event.author }}:
+                        <p>{{ event.content }}</p>
+                    </li>
+                {% empty %}
+                    <p>No Events yet</p>
+                {% endfor %}
+            </ul>
+
+            <h3>Members: {{ group.members.count }}</h3>
+            <ul>
+                {% for member in group.members.all %}
+                    <li>{{ member.email }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <form method="post" action="{% url 'join_group' pk=object.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="button-link">Join Group</button>
+            </form>
+        {% endif %}
+        <a href="{% url 'list_groups' %}" class="button-link">Groups</a>
+    {% endif %}
+{% endblock %}

@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     "bike_connect_network.web.apps.WebConfig",
-    "bike_connect_network.profiles.apps.ProfilesConfig"
+    "bike_connect_network.profiles.apps.ProfilesConfig",
+    "bike_connect_network.groups.apps.GroupsConfig"
 ]
 
 MIDDLEWARE = [

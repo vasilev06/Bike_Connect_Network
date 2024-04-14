@@ -6,4 +6,5 @@ urlpatterns = [
 
     path("", include('bike_connect_network.web.urls')),
     path("profile/", include('bike_connect_network.profiles.urls')),
+    path("group/", include('bike_connect_network.groups.urls')),
 ]
