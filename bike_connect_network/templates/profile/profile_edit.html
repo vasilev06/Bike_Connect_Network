@@ -4,7 +4,7 @@
 {% block main_content %}
     <section id="register-page" class="content auth">
         <div class="container">
-            <form action="{% url 'edit_user' pk=user.pk %}" method="post">
+            <form class="form" action="{% url 'edit_user' pk=user.pk %}" method="post">
                 <h1>Edit Profile</h1>
                 {{ form.as_p }}
 

@@ -2,9 +2,11 @@
 
 {% block main_content %}
     <h3>Create an Event</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="button-link">Greate</button>
-    </form>
+    <div class="container">
+        <form class="form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button-link">Greate</button>
+        </form>
+    </div>
 {% endblock %}

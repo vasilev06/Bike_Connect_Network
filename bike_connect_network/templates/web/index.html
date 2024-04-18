@@ -5,9 +5,66 @@
     <main>
         {% if user.is_authenticated %}
             <section>
-                <a href="#" class="button-link">Create Post</a>
+                <a href="{% url 'create_status' %}" class="button-link">Share Status</a>
                 <a href="{% url 'list_groups' %}" class="button-link">Groups</a>
                 <a href="{% url 'details_user' pk=user.pk %}" class="button-link">Profile</a>
+
+                <div class="post-container">
+                        {% for status in page_obj %}
+                            <div class="post-item">
+                                <p>{{ status.status }}</p>
+                                {% if status.image %}
+                                    <img src="{{ status.image.url }}" alt="Post Image">
+                                {% endif %}
+                                <p>Posted by: {{ status.user.email }} on {{ status.created_at|date:"d.m.Y" }}</p>
+
+                                <form action="{% url 'like_user_status' status_id=status.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="button-link">
+                                        {% if request.user in status.likes.all %}
+                                            Unlike
+                                        {% else %}
+                                            Like
+                                        {% endif %}
+                                    </button>
+                                </form>
+                                <span>{{ status.likes.count }} likes</span>
+
+                                <div>
+                                    <p>Comments:</p>
+                                    {% for comment in status.comments.all %}
+                                        <span>{{ comment.text }} - by {{ comment.user.email }}</span>
+                                    {% endfor %}
+                                </div>
+
+                                <form method="post" action="{% url 'add_comment' status.id %}">
+                                    {% csrf_token %}
+                                    <label>
+                                        <input type="text" name="comment_text" placeholder="Write a comment...">
+                                    </label>
+                                    <button type="submit" class="button-link">Add Comment</button>
+                                </form>
+                            </div>
+                        {% empty %}
+                            <p class="post-item">No posts yet.</p>
+                        {% endfor %}
+                </div>
+
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; First</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+
+                    <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                    {% endif %}
+                </div>
+
+
                 <form action="{% url 'logout_user' %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="button-link">Logout</button>
@@ -15,16 +72,16 @@
             </section>
         {% else %}
             <section>
-                <div class="container">
+                <div class="login-container">
                     <form action="{% url 'login_user' %}?next={{ next }}" method="post">
                         {{ form.as_p }}
 
-                        <button class="button-link">Login</button>
+                        <button>Login</button>
 
                         {% csrf_token %}
                     </form>
                 </div>
-                <p>Don't have an account? 
+                <p>Don't have an account?
                     <a href="{% url 'register_user' %}" class="button-link">Register</a>
                 </p>
             </section>

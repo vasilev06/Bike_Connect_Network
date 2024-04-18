@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block main_content %}
+
+    <h1>Create Post</h1>
+    <div class="container">
+        <form class="form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button-link">Share Status</button>
+        </form>
+    </div>
+
+{% endblock %}

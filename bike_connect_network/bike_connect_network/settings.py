@@ -29,7 +29,7 @@ INSTALLED_APPS = [
 
     "bike_connect_network.web.apps.WebConfig",
     "bike_connect_network.profiles.apps.ProfilesConfig",
-    "bike_connect_network.groups.apps.GroupsConfig"
+    "bike_connect_network.groups.apps.GroupsConfig",
 ]
 
 MIDDLEWARE = [
@@ -117,6 +117,10 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = (
     BASE_DIR / "staticfiles",
 )
+
+MEDIA_ROOT = BASE_DIR / 'mediafiles'
+
+MEDIA_URL = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

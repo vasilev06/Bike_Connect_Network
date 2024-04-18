@@ -3,16 +3,18 @@
 {% block main_content %}
 
     <h2>Bike Connect Network Groups</h2>
-    <ul>
+    <div style="padding: 10px; margin-left: 35px; margin-right: 10px;">
         {% for group in groups %}
-            <li>
+            <p>
                 <a href="{% url 'detail_group' pk=group.pk %}">{{ group.name }}</a>
-            </li>
+            </p>
         {% empty %}
-            <li>No groups found.</li>
+            <p>No groups found.</p>
         {% endfor %}
-    </ul>
     
-    <a href="{% url 'create_group' %}"><button class="button-link">Create Group</button></a>
-    
+        <a href="{% url 'create_group' %}">
+            <button class="button-link">Create Group</button>
+        </a>
+    </div>
+
 {% endblock %}
