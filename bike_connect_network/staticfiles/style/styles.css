@@ -19,10 +19,10 @@
 }
 
 .post-item {
-    border: 1px solid #ccc; /* Add border around each post */
-    background-color: #D8CAB2; /* Creamy background color */
-    padding: 10px; /* Add padding inside the border */
-    margin-bottom: 20px; /* Add some space between posts */
+    border: 1px solid #ccc;
+    background-color: #D8CAB2;
+    padding: 10px; 
+    margin-bottom: 20px; 
 }
 
 
@@ -71,7 +71,6 @@
     background-color: #f9f9f9;
 }
 
-/* Style for form fields */
 .login-container input[type="text"],
 .login-container input[type="password"] {
     width: 100%;
